@@ -1,115 +1,131 @@
-# Uptime Pinger
+# 🌐 Uptime Pinger
 
-*[English](#english) | [فارسی](#فارسی)*
-
----
-
-## English
-
-A simple command-line tool that repeatedly checks whether one or more
-websites are online, printing UP/DOWN status on a configurable interval.
-
-### Why this exists
-
-Basic uptime monitoring is one of the most common DevOps/SRE tasks — knowing
-immediately when a service goes down. This is a minimal, dependency-light
-version of that idea, built to understand the core mechanics behind larger
-monitoring tools like UptimeRobot or Pingdom.
-
-### Setup
-
-```bash
-pip3 install requests
-```
-
-### Usage
-
-```bash
-# Check the default sites (google.com, github.com) every 10 seconds
-python3 uptime_pinger.py
-
-# Check specific sites
-python3 uptime_pinger.py --url https://google.com --url https://github.com
-
-# Change the check interval
-python3 uptime_pinger.py --interval 30
-
-# Combine both
-python3 uptime_pinger.py --url https://mysite.com --interval 60
-```
-
-Press `Ctrl+C` to stop monitoring.
-
-### How it works
-
-- Sends an HTTP GET request to each URL
-- Status code `200` → reported as UP
-- Any other status code → reported as DOWN with the code shown
-- No response at all (timeout, DNS failure, etc.) → reported as DOWN (no response)
-- Repeats on a loop until manually stopped
-
-### Possible next steps
-
-- Send a Slack alert when a site goes from UP to DOWN (not every single check)
-- Log results with timestamps to a file
-- Support reading URLs from a config file instead of the command line
-- Track and report response time, not just up/down
-
-### Resume bullet point (example)
-
-> Built a Python CLI tool with `argparse` and `requests` to monitor website
-> uptime on a configurable interval, with graceful error handling for
-> unreachable hosts.
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS-blue?style=for-the-badge)](#)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](#)
 
 ---
 
-## فارسی
+# 🇺🇸 English
 
-یک ابزار خط‌فرمان ساده که به‌صورت مداوم بررسی می‌کند آیا یک یا چند وب‌سایت آنلاین هستند یا نه، و وضعیت UP/DOWN را با فاصله زمانی قابل تنظیم چاپ می‌کند.
+## Overview
 
-### چرا این ابزار ساخته شد
+**Uptime Pinger** is a lightweight Python-based command-line tool that
+repeatedly checks whether one or more websites are online, reporting
+UP/DOWN status on a configurable interval.
 
-مانیتورینگ پایه‌ای uptime یکی از رایج‌ترین وظایف DevOps/SRE است — اینکه فوراً بفهمی وقتی یه سرویس از دسترس خارج می‌شه. این یه نسخه مینیمال و بدون وابستگی سنگین از همون ایده‌ست، که برای فهمیدن مکانیزم اصلی پشت ابزارهای بزرگ‌تر مانیتورینگ مثل UptimeRobot یا Pingdom ساخته شده.
+### Features
 
-### نصب و راه‌اندازی
+- Check one or multiple websites at once
+- Configurable check interval
+- Graceful handling of unreachable hosts (timeouts, DNS failures)
+- Continuous watch mode (runs until stopped)
+- Clean, readable status output
 
-```bash
-pip3 install requests
+## Installation
+
+```
+git clone https://github.com/whoisowl/uptime-pinger.git
+cd uptime-pinger
+pip install -r requirements.txt
 ```
 
-### نحوه استفاده
+## Usage
 
-```bash
-# بررسی سایت‌های پیش‌فرض (google.com، github.com) هر ۱۰ ثانیه
-python3 uptime_pinger.py
+Run with default sites:
 
-# بررسی سایت‌های مشخص
-python3 uptime_pinger.py --url https://google.com --url https://github.com
-
-# تغییر فاصله زمانی بررسی
-python3 uptime_pinger.py --interval 30
-
-# ترکیب هر دو
-python3 uptime_pinger.py --url https://mysite.com --interval 60
+```
+python uptime_pinger.py
 ```
 
-برای توقف مانیتورینگ، کلید `Ctrl+C` را بزنید.
+Check specific sites:
 
-### نحوه عملکرد
+```
+python uptime_pinger.py --url https://google.com --url https://github.com
+```
 
-- یک درخواست HTTP GET به هر URL می‌فرستد
-- کد وضعیت `۲۰۰` → به‌عنوان UP گزارش می‌شود
-- هر کد وضعیت دیگری → به‌عنوان DOWN همراه با نمایش کد گزارش می‌شود
-- بدون هیچ پاسخی (timeout، خطای DNS و غیره) → به‌عنوان DOWN (بدون پاسخ) گزارش می‌شود
-- تا زمانی که به‌صورت دستی متوقف نشود، به‌صورت مداوم تکرار می‌شود
+Custom check interval:
 
-### قابلیت‌های پیشنهادی برای توسعه بعدی
+```
+python uptime_pinger.py --interval 30
+```
 
-- ارسال هشدار Slack زمانی که یک سایت از UP به DOWN تغییر وضعیت می‌دهد (نه در هر بررسی)
-- ثبت نتایج همراه با زمان در یک فایل لاگ
-- پشتیبانی از خواندن URLها از یک فایل config به‌جای خط فرمان
-- ردیابی و گزارش زمان پاسخ‌دهی، نه فقط وضعیت آنلاین/آفلاین
+Stop monitoring anytime with `Ctrl+C`.
 
-### نمونه جمله برای رزومه
+## Built With
 
-> یک ابزار خط‌فرمان با پایتون و با استفاده از `argparse` و `requests` ساختم که uptime وب‌سایت‌ها را با فاصله زمانی قابل تنظیم مانیتور می‌کند و خطاهای مربوط به سرورهای غیرقابل‌دسترس را به‌شکل مناسب مدیریت می‌کند.
+- Python
+- requests
+- argparse
+
+## License
+
+MIT License
+
+---
+
+# 🇮🇷 فارسی
+
+## معرفی
+
+**Uptime Pinger** یک ابزار خط فرمان (CLI) است که با زبان **Python** توسعه داده شده و به‌صورت مداوم بررسی می‌کند آیا یک یا چند وب‌سایت آنلاین هستند یا نه.
+
+### امکانات
+
+- بررسی یک یا چند وب‌سایت به‌صورت هم‌زمان
+- فاصله زمانی بررسی قابل تنظیم
+- مدیریت مناسب سرورهای غیرقابل‌دسترس (timeout، خطای DNS)
+- حالت مانیتورینگ مداوم (تا زمان توقف دستی اجرا می‌شود)
+- خروجی واضح و خوانا
+
+## نصب
+
+```
+git clone https://github.com/whoisowl/uptime-pinger.git
+cd uptime-pinger
+pip install -r requirements.txt
+```
+
+## اجرا
+
+اجرا با سایت‌های پیش‌فرض:
+
+```
+python uptime_pinger.py
+```
+
+بررسی سایت‌های مشخص:
+
+```
+python uptime_pinger.py --url https://google.com --url https://github.com
+```
+
+فاصله زمانی دلخواه:
+
+```
+python uptime_pinger.py --interval 30
+```
+
+برای توقف مانیتورینگ، در هر زمان کلید `Ctrl+C` را بزنید.
+
+## تکنولوژی‌های استفاده شده
+
+- Python
+- requests
+- argparse
+
+## مجوز
+
+این پروژه تحت مجوز MIT منتشر شده است.
+
+---
+
+## 👨‍💻 Author | توسعه‌دهنده
+
+**Arian Salarian**
+
+GitHub: https://github.com/whoisowl
+
+⭐ If you found this project useful, consider giving it a star!
+
+⭐ اگر این پروژه برایتان مفید بود، خوشحال می‌شوم به آن ستاره بدهید.
