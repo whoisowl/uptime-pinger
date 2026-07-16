@@ -1,0 +1,13 @@
+[project]
+name = "uptime-pinger"
+version = "0.1.0"
+description = "A simple CLI tool that monitors website uptime on a configurable interval."
+authors = [
+    { name = "Arian Salarian" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "requests>=2.31.0"
+]
